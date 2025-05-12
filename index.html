@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Feliz Aniversário - Venâncio Bande</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 5px 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #393737, #524e48b7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 90%;
+      margin: 10px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border: 3px solid #fab1a0;
+    }
+
+    h1 {
+      margin: 0;
+      color: #d63031;
+      font-weight: 400;
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #636e72;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .ok {
+      background: #56dee774;
+      color: white;
+    }
+
+    .ok:hover {
+      background: #10e1efa9;
+    }
+
+    .cancelar {
+      background: #ae2727b5;
+      color: white;
+    }
+
+    .cancelar:hover {
+      background: #b02425;
+    }
+
+    .msg {
+      margin-top: 1rem;
+      font-weight: 300;
+      color: #2d3436;
+      font-size: 1.1rem;
+      position: relative;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .fechar {
+      position: absolute;
+      top: -45px;
+      right: -15px;
+      background: #f33f039e;
+      border: none;
+      border-radius: 50%;
+      width: 70px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 25px;
+      text-align: center;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <img src="imagens/minhafoto.jpg" alt="Aniversário" />
+    <h1>🎉 Feliz Aniversário, Venâncio Bande! 🎉</h1>
+    <p>Participe da celebração! Deixe seus parabéns:</p>
+
+    <input type="text" id="nomePessoa" placeholder="Seu nome" />
+    <input type="text" id="numero" placeholder="Seu número (84/85/86/87)" />
+    <input type="password" id="senha" placeholder="Sua senha" />
+
+    <div id="botoes">
+      <button class="ok" onclick="confirmar()">Confirmar</button>
+      <button class="cancelar" onclick="cancelar()">Cancelar</button>
+    </div>
+
+    <div class="msg" id="mensagem"></div>
+  </div>
+
+  <script>
+    function confirmar() {
+      const nome = document.getElementById('nomePessoa').value.trim();
+      const numero = document.getElementById('numero').value.trim();
+      const senha = document.getElementById('senha').value.trim();
+      const card = document.getElementById('card');
+
+      if (!nome || !numero || !senha) {
+        document.getElementById('mensagem').innerHTML = "Preencha todos os campos para continuar.";
+        return;
+      }
+
+      const prefixo = numero.substring(0, 2);
+      let metodo = "";
+
+      if (prefixo === "84" || prefixo === "85") {
+        metodo = "M-Pesa";
+      } else if (prefixo === "86" || prefixo === "87") {
+        metodo = "e-Mola";
+      } else {
+        document.getElementById('mensagem').innerHTML = "Número inválido. Use prefixo 84, 85, 86 ou 87.";
+        return;
+      }
+
+      card.innerHTML = `
+        <div class="msg">
+          <button class="fechar" onclick="fechar()">close</button>
+          🎁 Parabéns ${nome}! Você fez Txuna ${metodo} de 1000 MZN para felicitar Venâncio Bande pelo seu aniversário! 🎉
+        </div>`;
+    }
+
+    function cancelar() {
+      const card = document.getElementById('card');
+      card.innerHTML = `
+        <div class="msg">
+          <button class="fechar" onclick="fechar()">close</button>
+          😅 Ei malandro! Nada de sair de fininho… manda um mimo ao Venâncio Bande — ele merece! 😉
+        </div>`;
+    }
+
+    function fechar() {
+      // Tenta fechar a aba
+      window.close();
+
+      // Se falhar (navegador bloqueia), oculta o card visualmente
+      const card = document.getElementById('card');
+      card.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
